@@ -18,17 +18,13 @@
         
         .container { max-width: 900px; margin: auto; padding: 40px 20px; }
         
-        /* Estilo del Diagrama Srid-pa-ho */
         .sridpaho-container { text-align: center; margin-bottom: 30px; }
         .sridpaho-svg { width: 180px; height: 180px; fill: var(--golden-yellow); filter: drop-shadow(0 0 10px rgba(0,0,0,0.2)); }
 
-        .calculator-card { background: #fffcf5; padding: 40px; border-radius: 4px; box-shadow: 0 10px 40px rgba(0,0,0,0.15); border: 2px solid var(--deep-blue); text-align: center; position: relative; }
-        .calculator-card::before { content: ""; position: absolute; top: 10px; left: 10px; right: 10px; bottom: 10px; border: 1px solid rgba(41, 22, 111, 0.1); pointer-events: none; }
+        .calculator-card { background: #fffcf5; padding: 40px; border-radius: 4px; box-shadow: 0 10px 40px rgba(0,0,0,0.15); border: 2px solid var(--deep-blue); text-align: center; }
         
-        h2 { color: var(--tibetan-red); text-transform: uppercase; letter-spacing: 2px; }
-        input { padding: 15px; font-size: 1.2rem; border: 2px solid var(--deep-blue); background: white; margin: 10px; width: 100%; max-width: 250px; text-align: center; }
-        
-        button { background-color: var(--deep-blue); color: var(--golden-yellow); padding: 18px 40px; border: none; font-size: 1.1rem; font-weight: bold; cursor: pointer; transition: 0.3s; margin-top: 20px; border: 1px solid var(--golden-yellow); }
+        input { padding: 15px; font-size: 1.2rem; border: 2px solid var(--deep-blue); margin: 10px; width: 100%; max-width: 250px; text-align: center; }
+        button { background-color: var(--deep-blue); color: var(--golden-yellow); padding: 18px 40px; border: 1px solid var(--golden-yellow); font-size: 1.1rem; font-weight: bold; cursor: pointer; transition: 0.3s; margin-top: 20px; }
         button:hover { background-color: var(--tibetan-red); color: white; }
 
         #result { margin-top: 40px; display: none; text-align: left; padding-top: 30px; }
@@ -37,11 +33,10 @@
         .element-badge { color: var(--tibetan-red); font-variant: small-caps; font-size: 1.4rem; font-weight: bold; }
         
         .detailed-text p { margin-bottom: 25px; text-align: justify; text-indent: 30px; }
-        .detailed-text p::first-letter { font-size: 1.5rem; color: var(--tibetan-red); font-weight: bold; }
+        .detailed-text strong { color: var(--tibetan-red); }
 
-        .footer-logo { font-size: 1.5rem; font-weight: bold; color: var(--golden-yellow); text-decoration: none; display: block; margin-bottom: 10px; }
         footer { background-color: var(--deep-blue); color: white; text-align: center; padding: 60px 20px; margin-top: 80px; border-top: 8px solid var(--tibetan-red); }
-        .contact-btn { display: inline-block; background-color: var(--golden-yellow); color: var(--deep-blue); padding: 15px 35px; text-decoration: none; font-weight: bold; margin-top: 20px; border-radius: 2px; }
+        .contact-btn { display: inline-block; background-color: var(--golden-yellow); color: var(--deep-blue); padding: 15px 35px; text-decoration: none; font-weight: bold; margin-top: 20px; }
     </style>
 </head>
 <body>
@@ -50,21 +45,19 @@
     <div class="sridpaho-container">
         <svg class="sridpaho-svg" viewBox="0 0 100 100">
             <path d="M50 5 C25 5 5 25 5 50 C5 75 25 95 50 95 C75 95 95 75 95 50 C95 25 75 5 50 5 M50 15 L60 25 L50 35 L40 25 Z M25 50 L35 40 L45 50 L35 60 Z M75 50 L65 40 L55 50 L65 60 Z M50 85 L40 75 L50 65 L60 75 Z"/>
-            <circle cx="50" cy="50" r="10" stroke="currentColor" fill="none" />
             <text x="50" y="53" font-size="8" text-anchor="middle" fill="currentColor">ॐ</text>
         </svg>
     </div>
-    <h1>Astrología Tradicional Tibetana</h1>
-    <p>Cálculo de la Energía Vital, Elementos y Destino Kármico</p>
+    <h1>Astrología Tibetana Vajrakula</h1>
+    <p>El Conocimiento de los Elementos y la Tortuga Cósmica</p>
 </header>
 
 <div class="container">
     <div class="calculator-card">
-        <h2>Consulta el Oráculo</h2>
-        <p>Introduzca su año de nacimiento para revelar las tendencias de su corriente mental según el sistema *Jungwa-Tsi*.</p>
-        <input type="number" id="birthYear" placeholder="Año (ej. 1980)" min="1900" max="2030">
+        <h2>Consulta tu Horóscopo Tibetano</h2>
+        <input type="number" id="birthYear" placeholder="Año de Nacimiento" min="1900" max="2030">
         <br>
-        <button onclick="revealDestiny()">CALCULAR DESTINO</button>
+        <button onclick="revealDestiny()">REVELAR MI KARMA</button>
 
         <div id="result">
             <div id="content"></div>
@@ -73,9 +66,8 @@
 </div>
 
 <footer>
-    <a href="https://www.vajrakula.com" class="footer-logo">VAJRAKULA</a>
-    <p>Para consultas personalizadas sobre su Mewa, Parkha y logue de vida:</p>
-    <a href="https://www.vajrakula.com" class="contact-btn">CONTACTAR CON NOSOTROS</a>
+    <p>Para un análisis profundo de sus Parkhas y Mewas personales:</p>
+    <a href="https://www.vajrakula.com" class="contact-btn">VISITAR VAJRAKULA.COM</a>
 </footer>
 
 <script>
@@ -84,19 +76,15 @@
 
     function revealDestiny() {
         const year = document.getElementById('birthYear').value;
-        if (!year || year < 1900) { alert("Por favor, ingrese un año válido."); return; }
+        if (!year) return;
 
-        const animal = animals[(year - 1900) % 12];
+        const animalIdx = (year - 1900) % 12;
+        const animal = animals[animalIdx];
         const element = elements[Math.floor((year - 1900) / 2) % 5];
         
-        let elDesc = "";
-        switch(element) {
-            case "Hierro": elDesc = "una estructura inamovible, fuerza de voluntad y claridad cortante"; break;
-            case "Agua": elDesc = "una fluidez profunda, gran capacidad intuitiva y penetración mental"; break;
-            case "Madera": elDesc = "un crecimiento expansivo, creatividad ilimitada y flexibilidad vital"; break;
-            case "Fuego": elDesc = "un resplandor transformador, pasión espiritual y dinamismo puro"; break;
-            case "Tierra": elDesc = "una estabilidad nutritiva, solidez kármica y gran paciencia"; break;
-        }
+        // Lógica de compatibilidad
+        const allies = [animals[(animalIdx + 4) % 12], animals[(animalIdx + 8) % 12]];
+        const enemy = animals[(animalIdx + 6) % 12];
 
         const content = document.getElementById('content');
         content.innerHTML = `
@@ -105,20 +93,19 @@
                 <span class="element-badge">Elemento ${element}</span>
             </div>
             <div class="detailed-text">
-                <p><strong>I. Naturaleza Primordial:</strong> El signo de la ${animal} indica una corriente mental dotada de una inteligencia rápida y una capacidad de adaptación excepcional. En la cosmología tibetana, su energía está ligada a la supervivencia y al florecimiento en condiciones difíciles. Posee usted un magnetismo natural que, si se cultiva con ética, puede atraer abundantes recursos para el beneficio de todos los seres, aunque debe cuidar de no caer en la astucia mundana.</p>
+                <p><strong>I. Naturaleza Primordial:</strong> Usted ha nacido bajo la influencia de la ${animal}, un signo que en la tradición tibetana simboliza una corriente mental de gran agudeza. Su carácter está marcado por una predisposición a la observación detallada y una capacidad de respuesta rápida ante las crisis. Esta esencia primordial le otorga el poder de liderar proyectos o proteger su entorno, siempre que logre equilibrar su ambición natural con la práctica de la generosidad desinteresada.</p>
                 
-                <p><strong>II. La Influencia del ${element}:</strong> Al estar regido por el elemento ${element}, su "La" o energía vital se manifiesta con ${elDesc}. Esta combinación sugiere que su karma de vida se orienta hacia la consolidación de proyectos de largo alcance. El ${element} actúa como el vehículo a través del cual su ${animal} interior se expresa; es el equilibrio entre la acción y la contemplación lo que permitirá que su potencial se realice sin obstáculos externos significativos.</p>
+                <p><strong>II. La Influencia del ${element}:</strong> El elemento ${element} tiñe su energía vital (La) este año. Esta fuerza se manifiesta como un vehículo que impulsa sus aspiraciones hacia la realidad material. En la astrología Jungwa-Tsi, el ${element} requiere una atención especial a la salud de sus canales internos. Usted debe cultivar la calma para que la cualidad intrínseca del ${element} no opaque su claridad espiritual, permitiendo que su potencial florezca de manera armónica.</p>
                 
-                <p><strong>III. Alianzas y Oposiciones Kármicas:</strong> Su compatibilidad más elevada se encuentra con aquellos que comparten su visión de desarrollo espiritual y material, especialmente los signos que forman su triángulo de armonía. Por el contrario, la relación con su signo opuesto representa el "espejo del ego", un desafío kármico que requiere paciencia. Estas interacciones no son azarosas, sino deudas y conexiones de vidas pasadas que en Vajrakula ayudamos a armonizar mediante la práctica consciente y la purificación.</p>
+                <p><strong>III. Alianzas y Oposiciones Kármicas:</strong> En el tejido de sus relaciones, usted posee una "Armonía Secreta" con sus aliados naturales, que son el <strong>${allies[0]}</strong> y el <strong>${allies[1]}</strong>. Con estas personas, los proyectos y la práctica espiritual fluyen con menor resistencia. Por el contrario, su mayor desafío kármico y oposición se encuentra en el signo del <strong>${enemy}</strong>. Esta enemistad no es un castigo, sino una invitación kármica a trabajar la paciencia y el desapego del ego.</p>
                 
-                <p><strong>IV. Vitalidad y Caballo del Viento:</strong> Su "Lungta" o Caballo del Viento —la energía que determina su éxito y fortuna— fluye con mayor fuerza cuando alinea sus acciones con la verdad. Para un ${animal} de ${element}, la duda y la indecisión son los mayores ladrones de energía. Al fortalecer su confianza interna mediante el estudio del Dharma, usted puede elevar su vibración, permitiendo que las circunstancias externas se sincronicen con sus aspiraciones más elevadas de manera espontánea.</p>
+                <p><strong>IV. Vitalidad y Éxito (Lungta):</strong> Su "Caballo del Viento" o capacidad de éxito depende de la pureza de su motivación. Para un ${animal} de ${element}, los obstáculos aparecen cuando la mente se dispersa en deseos mundanos. Al fortalecer su compromiso con el Dharma, su energía protectora se vuelve inquebrantable. El éxito este año vendrá a través de la perseverancia y la capacidad de transformar los problemas en el camino mismo hacia la iluminación.</p>
                 
-                <p><strong>V. Senda de Práctica Sugerida:</strong> Dada su configuración astrológica, su camino hacia la iluminación se ve favorecido por prácticas que estabilicen los vientos internos. La meditación en la deidad principal de su linaje y la acumulación de mérito a través de la generosidad son esenciales. Se recomienda especialmente la práctica de purificación diaria para limpiar las oscurecerse del elemento ${element}, permitiendo que la sabiduría innata brille con toda su pureza. En Vajrakula, le invitamos a profundizar en estos métodos tradicionales para trascender las limitaciones del horóscopo mundano.</p>
+                <p><strong>V. Senda de Práctica Sugerida:</strong> Dada su configuración astrológica, en Vajrakula recomendamos enfáticamente la práctica de deidades que armonicen el elemento ${element}. La acumulación de mantras de purificación y la meditación en la compasión universal ayudarán a disolver los bloqueos de su signo. La conexión con su linaje espiritual es el refugio más seguro frente a las fluctuaciones del horóscopo, permitiéndole trascender las limitaciones kármicas de su nacimiento.</p>
             </div>
         `;
         
         document.getElementById('result').style.display = 'block';
-        window.scrollTo({ top: document.getElementById('result').offsetTop - 50, behavior: 'smooth' });
     }
 </script>
 
