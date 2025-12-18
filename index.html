@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Astrología Tibetana - Vajrakula</title>
+    <style>
+        :root {
+            --deep-blue: #29166F;
+            --white: #FFFFFF;
+            --tibetan-red: #DA251C;
+            --dharma-green: #008010;
+            --golden-yellow: #F4E109;
+        }
+
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; background-color: #f4f4f4; margin: 0; color: #333; }
+        header { background-color: var(--deep-blue); color: var(--golden-yellow); padding: 40px 20px; text-align: center; border-bottom: 8px solid var(--tibetan-red); }
+        
+        .container { max-width: 800px; margin: auto; padding: 40px 20px; }
+        
+        .calculator-card { background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); border: 2px solid var(--golden-yellow); text-align: center; }
+        
+        select, input { padding: 12px; font-size: 1.1rem; border: 2px solid var(--deep-blue); border-radius: 8px; margin: 10px; width: 100%; max-width: 200px; }
+        
+        button { background-color: var(--tibetan-red); color: white; padding: 15px 30px; border: none; border-radius: 30px; font-size: 1.1rem; font-weight: bold; cursor: pointer; transition: 0.3s; margin-top: 10px; }
+        button:hover { background-color: var(--deep-blue); transform: scale(1.05); }
+
+        #result { margin-top: 30px; display: none; text-align: left; animation: fadeIn 0.5s; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        .result-header { background: var(--deep-blue); color: var(--golden-yellow); padding: 15px; border-radius: 8px 8px 0 0; margin-bottom: 0; }
+        .result-body { background: white; padding: 20px; border: 2px solid var(--deep-blue); border-top: none; border-radius: 0 0 8px 8px; }
+
+        .section-title { color: var(--tibetan-red); font-weight: bold; margin-top: 15px; border-bottom: 1px solid #eee; }
+        
+        .grid-info { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 15px; }
+        .info-box { padding: 10px; border-radius: 6px; background: #f9f9f9; }
+
+        footer { background-color: var(--deep-blue); color: white; text-align: center; padding: 50px 20px; margin-top: 60px; }
+        .web-link { display: inline-block; background-color: var(--golden-yellow); color: var(--deep-blue); padding: 12px 25px; border-radius: 25px; text-decoration: none; font-weight: bold; margin-top: 15px; }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Astrología Tradicional Tibetana</h1>
+    <p>Descubre tu signo, elemento y consejos de práctica</p>
+</header>
+
+<div class="container">
+    <div class="calculator-card">
+        <h3>Ingresa tu año de nacimiento</h3>
+        <input type="number" id="birthYear" placeholder="Ej: 1985" min="1900" max="2026">
+        <br>
+        <button onclick="calculateTibetanZodiac()">Revelar mi Signo</button>
+
+        <div id="result">
+            <h2 class="result-header" id="signTitle"></h2>
+            <div class="result-body">
+                <p id="generalDesc"></p>
+                
+                <div class="grid-info">
+                    <div class="info-box">
+                        <div class="section-title">Mejor Compatibilidad</div>
+                        <p id="bestMatch"></p>
+                    </div>
+                    <div class="info-box">
+                        <div class="section-title">Menor Compatibilidad</div>
+                        <p id="worstMatch"></p>
+                    </div>
+                </div>
+
+                <div class="section-title">Prácticas Indicadas</div>
+                <p id="spiritualAdvice"></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <p>Para consultas astrológicas detalladas o guía espiritual, contacta con nosotros:</p>
+    <a href="https://www.vajrakula.com" class="web-link" target="_blank">www.vajrakula.com</a>
+</footer>
+
+<script>
+    const animals = ["Rata", "Buey", "Tigre", "Liebre", "Dragón", "Serpiente", "Caballo", "Oveja", "Mono", "Gallo", "Perro", "Cerdo"];
+    const elements = ["Hierro", "Agua", "Madera", "Fuego", "Tierra"];
+
+    const data = {
+        "Rata": { desc: "Ingeniosa, versátil y amable. Posee una gran capacidad de supervivencia.", best: "Mono, Dragón", worst: "Caballo", practice: "Práctica de Tara Blanca para la longevidad y estabilidad emocional." },
+        "Buey": { desc: "Decidido, honesto y paciente. Simboliza la fuerza mental y la perseverancia.", best: "Serpiente, Gallo", worst: "Oveja", practice: "Meditación Shamatha para calmar la mente y cultivar flexibilidad." },
+        "Tigre": { desc: "Valiente, impulsivo y generoso. Posee una energía dinámica y protectora.", best: "Caballo, Perro", worst: "Mono", practice: "Prácticas de deidades iracundas (Dharmapalas) para transmutar la ira." },
+        "Liebre": { desc: "Elegante, sensible y pacífica. Evita el conflicto y cultiva la armonía.", best: "Cerdo, Oveja", worst: "Gallo", practice: "Práctica de Medicine Buddha (Sangye Menla) para la sanación interna." },
+        "Dragón": { desc: "Poderoso, energético y vital. Representa la buena fortuna y la sabiduría.", best: "Rata, Mono", worst: "Perro", practice: "Práctica de Chenrezig para cultivar la compasión infinita." },
+        "Serpiente": { desc: "Sabia, enigmática e inteligente. Posee una gran intuición espiritual.", best: "Buey, Gallo", worst: "Cerdo", practice: "Yoga de los sueños o meditación Vipassana para ver la realidad." },
+        "Caballo": { desc: "Libre, entusiasta y veloz. Necesita espacio y movimiento constante.", best: "Tigre, Perro", worst: "Rata", practice: "Práctica del Caballo del Viento (Lungta) para elevar la energía vital." },
+        "Oveja": { desc: "Creativa, compasiva y mística. Muy conectada con el arte y la devoción.", best: "Liebre, Cerdo", worst: "Buey", practice: "Ofrendas de incienso (Sang) y visualización de campos de mérito." },
+        "Mono": { desc: "Curioso, ingenioso y divertido. Aprende rápido pero se distrae con facilidad.", best: "Rata, Dragón", worst: "Tigre", practice: "Ngöndro o prácticas preliminares para asentar la disciplina." },
+        "Gallo": { desc: "Preciso, valiente y orgulloso. Gran protector de la verdad y el orden.", best: "Buey, Serpiente", worst: "Liebre", practice: "Práctica de Manjushri para purificar el habla y ganar sabiduría." },
+        "Perro": { desc: "Leal, honesto y vigilante. Protector natural de los débiles.", best: "Tigre, Caballo", worst: "Dragón", practice: "Prácticas de Generosidad y refugio en el Triple Tesoro." },
+        "Cerdo": { desc: "Noble, paciente y optimista. Busca la pureza de corazón en todo.", best: "Oveja, Liebre", worst: "Serpiente", practice: "Purificación de Vajrasattva para limpiar el karma acumulado." }
+    };
+
+    function calculateTibetanZodiac() {
+        const year = document.getElementById('birthYear').value;
+        if (!year || year < 1900) {
+            alert("Por favor, ingresa un año válido.");
+            return;
+        }
+
+        // El año 1900 fue Rata de Hierro
+        const animalIndex = (year - 1900) % 12;
+        const elementIndex = Math.floor((year - 1900) / 2) % 5;
+        
+        const animal = animals[animalIndex];
+        const element = elements[elementIndex];
+        const info = data[animal];
+
+        document.getElementById('signTitle').innerText = `${animal} de ${element}`;
+        document.getElementById('generalDesc').innerText = info.desc;
+        document.getElementById('bestMatch').innerText = info.best;
+        document.getElementById('worstMatch').innerText = info.worst;
+        document.getElementById('spiritualAdvice').innerText = info.practice;
+
+        document.getElementById('result').style.display = 'block';
+    }
+</script>
+
+</body>
+</html>
