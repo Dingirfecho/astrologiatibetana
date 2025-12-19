@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Oráculo Srid-pa-ho Profundo - Vajrakula</title>
+    <title>Calendario Tibetano 2153 - Vajrakula Total</title>
     <style>
         :root {
             --deep-blue: #29166F;
@@ -13,214 +13,184 @@
             --golden-yellow: #F4E109;
         }
 
-        body { font-family: 'Palatino', 'Georgia', serif; background-color: #fdfaf6; margin: 0; color: #1a1a1a; line-height: 1.9; }
-        header { background-color: var(--deep-blue); color: var(--golden-yellow); padding: 50px 20px; text-align: center; border-bottom: 10px solid var(--tibetan-red); }
+        body { font-family: 'Palatino', 'Georgia', serif; background-color: #fdfaf6; margin: 0; padding: 0; color: #1a1a1a; }
+        header { background-color: var(--deep-blue); color: var(--golden-yellow); padding: 40px 20px; text-align: center; border-bottom: 8px solid var(--tibetan-red); }
         
-        .sridpaho-visual { 
-            width: 220px; height: 220px; margin: 0 auto 25px; 
-            background: var(--golden-yellow); border-radius: 50%; 
-            border: 6px double var(--tibetan-red); position: relative;
-            display: flex; align-items: center; justify-content: center;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-        }
-        .turtle-mandala {
-            width: 150px; height: 150px; border: 2px solid var(--deep-blue);
-            display: grid; grid-template-columns: repeat(3, 1fr);
-            transform: rotate(45deg); background: rgba(255,255,255,0.3);
-        }
-        .turtle-mandala div { border: 1px solid var(--deep-blue); display: flex; align-items: center; justify-content: center; font-size: 0.6rem; transform: rotate(-45deg); }
-
-        .container { max-width: 950px; margin: auto; padding: 40px 20px; }
-        .calculator-card { background: white; padding: 50px; border-radius: 4px; box-shadow: 0 15px 50px rgba(0,0,0,0.1); border: 1px solid #eee; text-align: center; }
+        .anniversary-bar { background: var(--golden-yellow); color: var(--deep-blue); padding: 12px; text-align: center; font-weight: bold; font-size: 0.95rem; border-bottom: 2px solid var(--tibetan-red); }
         
-        input { padding: 18px; font-size: 1.3rem; border: 2px solid var(--deep-blue); background: #fffcf5; margin: 10px; width: 100%; max-width: 280px; text-align: center; }
-        button { background-color: var(--tibetan-red); color: white; padding: 20px 50px; border: none; font-size: 1.2rem; font-weight: bold; cursor: pointer; transition: 0.4s; margin-top: 25px; text-transform: uppercase; letter-spacing: 2px; }
-        button:hover { background-color: var(--deep-blue); color: var(--golden-yellow); transform: translateY(-3px); }
-
-        #result { margin-top: 50px; display: none; text-align: left; border-top: 4px double var(--tibetan-red); padding-top: 40px; animation: fadeIn 1s ease; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-
-        .sign-header { text-align: center; margin-bottom: 40px; }
-        .sign-title { color: var(--deep-blue); font-size: 3rem; margin: 0; text-transform: uppercase; }
-        .element-subtitle { color: var(--tibetan-red); font-size: 1.5rem; font-style: italic; border-bottom: 2px solid var(--golden-yellow); display: inline-block; padding: 0 20px; }
+        .container { max-width: 1300px; margin: auto; padding: 20px; }
         
-        .section-title { color: var(--deep-blue); font-weight: bold; font-size: 1.3rem; margin-top: 35px; display: block; border-left: 5px solid var(--tibetan-red); padding-left: 15px; }
-        .detailed-text p { margin-bottom: 25px; text-align: justify; }
-        .highlight { color: var(--tibetan-red); font-weight: bold; }
+        .legend { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; margin-bottom: 30px; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); border: 1px solid #ddd; }
+        .tag { font-size: 0.7rem; padding: 3px 8px; border-radius: 4px; color: white; text-transform: uppercase; font-weight: bold; }
+        
+        .guru { background-color: var(--dharma-green); }
+        .dakini { background-color: var(--deep-blue); }
+        .protector { background-color: var(--tibetan-red); }
+        .mewa { background-color: #555; }
+        .eclipse { background-color: black; }
+        .bon { background-color: #7B3F00; }
 
-        footer { background-color: var(--deep-blue); color: white; text-align: center; padding: 80px 20px; margin-top: 100px; border-top: 10px solid var(--golden-yellow); }
-        .web-link { display: inline-block; background-color: var(--tibetan-red); color: white; padding: 18px 45px; text-decoration: none; font-weight: bold; margin-top: 30px; border-radius: 2px; transition: 0.3s; }
-        .web-link:hover { background-color: var(--dharma-green); }
+        .month-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); gap: 25px; }
+        .month-card { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.1); border: 1px solid #eee; display: flex; flex-direction: column; }
+        .month-header { background: var(--deep-blue); color: var(--golden-yellow); padding: 15px; text-align: center; position: relative; }
+        .mewa-badge { position: absolute; right: 15px; top: 15px; background: var(--golden-yellow); color: var(--deep-blue); padding: 5px 10px; border-radius: 50%; font-weight: bold; border: 2px solid var(--tibetan-red); }
+
+        .event-list { list-style: none; padding: 0; margin: 0; flex-grow: 1; }
+        .event-item { padding: 12px 18px; border-bottom: 1px solid #f0f0f0; display: flex; align-items: flex-start; transition: background 0.2s; }
+        .event-item:hover { background: #fffcf0; }
+        .day { font-weight: bold; width: 35px; color: var(--tibetan-red); flex-shrink: 0; font-size: 1.1rem; }
+        .desc { font-size: 0.85rem; line-height: 1.4; }
+        .master { font-weight: bold; color: var(--deep-blue); }
+
+        .bad-lungta { color: #777; font-style: italic; font-size: 0.8rem; display: block; margin-top: 4px; }
+
+        footer { background-color: var(--deep-blue); color: white; text-align: center; padding: 60px 20px; margin-top: 50px; border-top: 8px solid var(--tibetan-red); }
+        .web-link { color: var(--golden-yellow); text-decoration: none; font-size: 1.3rem; font-weight: bold; border: 2px solid var(--golden-yellow); padding: 10px 20px; display: inline-block; margin-top: 20px; transition: 0.3s; }
+        .web-link:hover { background: var(--golden-yellow); color: var(--deep-blue); }
     </style>
 </head>
 <body>
 
 <header>
-    <div class="sridpaho-visual">
-        <div class="turtle-mandala">
-            <div>☴</div><div>☲</div><div>☷</div>
-            <div>☳</div><div style="font-size:1.2rem">ॐ</div><div>☱</div>
-            <div>☶</div><div>☵</div><div>☰</div>
-        </div>
-    </div>
-    <h1>Astrología Sagrada del Tíbet</h1>
-    <p>Sistema Jungwa-Tsi: Los Cinco Elementos y la Rueda de los Animales</p>
+    <h1>CALENDARIO TIBETANO VAJRAKULA 2026</h1>
+    <p>Año del Caballo de Fuego 2153 - Ciclo de las 6 Tradiciones</p>
 </header>
 
-<div class="container">
-    <div class="calculator-card">
-        <h2>Consulta tu Destino Kármico</h2>
-        <p>A través de la ciencia de los elementos, descubrimos las tendencias de nuestra corriente mental y los métodos para armonizarlas en el camino al despertar.</p>
-        <input type="number" id="birthYear" placeholder="Año (ej. 1984)" min="1900" max="2030">
-        <br>
-        <button onclick="calculateDeepAstrology()">Revelar Sabiduría</button>
+<div class="anniversary-bar">
+    91º Aniversario de SS. XIV Dalai Lama (6 de Julio) | Año de Purificación y Práctica Intensa
+</div>
 
-        <div id="result">
-            <div id="content"></div>
+<div class="container">
+    <div class="legend">
+        <div><span class="tag guru">10</span> Guru Rinpoche</div>
+        <div><span class="tag dakini">25</span> Dakinis</div>
+        <div><span class="tag protector">29</span> Dharmapalas</div>
+        <div><span class="tag mewa">M</span> Mewa Mensual</div>
+        <div><span class="tag eclipse">ECL</span> Eclipse</div>
+        <div><span class="tag bon">BÖN</span> Tradición Bön</div>
+    </div>
+
+    <div class="month-grid">
+        <div class="month-card">
+            <div class="month-header"><h2>ENERO</h2><div class="mewa-badge">2</div></div>
+            <ul class="event-list">
+                <li class="event-item"><span class="day">12</span><span class="desc Master">Aniversario de Longchenpa (Nyingma)</span></li>
+                <li class="event-item"><span class="day">16</span><span class="desc"><span class="bad-lungta">⚠️ No colgar banderas (Día Baden)</span></span></li>
+                <li class="event-item"><span class="day">18</span><span class="desc"><span class="tag protector">29</span> <strong>Día de Dharmapalas</strong></span></li>
+                <li class="event-item"><span class="day">28</span><span class="desc"><span class="tag guru">10</span> Día de Guru Rinpoche</span></li>
+            </ul>
+        </div>
+
+        <div class="month-card">
+            <div class="month-header"><h2>FEBRERO</h2><div class="mewa-badge">1</div></div>
+            <ul class="event-list">
+                <li class="event-item"><span class="day">1</span><span class="desc master"><span class="tag bon">BÖN</span> Nyamme Sherab Gyaltsen</span></li>
+                <li class="event-item"><span class="day">16</span><span class="desc"><span class="tag protector">29</span> <strong>Dharmapalas</strong> (Fin de Año 2152)</span></li>
+                <li class="event-item"><span class="day">17</span><span class="desc"><span class="tag eclipse">ECL</span> 🌑 <strong>Eclipse Solar</strong> (Mérito x100M)</span></li>
+                <li class="event-item"><span class="day">18</span><span class="desc"><span class="tag protector">LOSAR</span> <strong>AÑO NUEVO 2153 (Caballo de Fuego)</strong></span></li>
+            </ul>
+        </div>
+
+        <div class="month-card">
+            <div class="month-header"><h2>MARZO</h2><div class="mewa-badge">9</div></div>
+            <ul class="event-list">
+                <li class="event-item"><span class="day">2</span><span class="desc master"><span class="tag bon">BÖN</span> Nacimiento de Tonpa Shenrab Miwoche</span></li>
+                <li class="event-item"><span class="day">3</span><span class="desc"><span class="tag eclipse">ECL</span> 🌕 <strong>Eclipse Lunar</strong> (Mérito x7M)</span></li>
+                <li class="event-item"><span class="day">4</span><span class="desc"><span class="tag special">DUCHEN</span> Chotrul Duchen (Día de Milagros)</span></li>
+                <li class="event-item"><span class="day">17</span><span class="desc"><span class="tag protector">29</span> <strong>Dharmapalas</strong></span></li>
+                <li class="event-item"><span class="day">24</span><span class="desc master">Aniv. Jetsun Dragpa Gyaltsen (Sakya)</span></li>
+            </ul>
+        </div>
+
+        <div class="month-card">
+            <div class="month-header"><h2>ABRIL</h2><div class="mewa-badge">8</div></div>
+            <ul class="event-list">
+                <li class="event-item"><span class="day">2</span><span class="desc"><span class="bad-lungta">⚠️ No colgar banderas (Día Baden)</span></span></li>
+                <li class="event-item"><span class="day">12</span><span class="desc"><span class="tag dakini">25</span> Día de Dakinis</span></li>
+                <li class="event-item"><span class="day">16</span><span class="desc"><span class="tag protector">29</span> <strong>Dharmapalas</strong></span></li>
+                <li class="event-item"><span class="day">26</span><span class="desc"><span class="tag guru">10</span> Día de Guru Rinpoche</span></li>
+            </ul>
+        </div>
+
+        <div class="month-card">
+            <div class="month-header"><h2>MAYO</h2><div class="mewa-badge">7</div></div>
+            <ul class="event-list">
+                <li class="event-item"><span class="day">14</span><span class="desc master">Aniv. de Mipham Rinpoche (Nyingma)</span></li>
+                <li class="event-item"><span class="day">15</span><span class="desc"><span class="tag protector">29</span> <strong>Dharmapalas</strong></span></li>
+                <li class="event-item"><span class="day">25</span><span class="desc"><span class="bad-lungta">⚠️ No colgar banderas (Día Baden)</span></span></li>
+                <li class="event-item"><span class="day">31</span><span class="desc"><span class="tag special">DUCHEN</span> ☸️ <strong>SAGA DAWA DUCHEN</strong></span></li>
+            </ul>
+        </div>
+
+        <div class="month-card">
+            <div class="month-header"><h2>JUNIO</h2><div class="mewa-badge">6</div></div>
+            <ul class="event-list">
+                <li class="event-item"><span class="day">10</span><span class="desc"><span class="tag dakini">25</span> Día de Dakinis</span></li>
+                <li class="event-item"><span class="day">14</span><span class="desc"><span class="tag protector">29</span> <strong>Dharmapalas</strong></span></li>
+                <li class="event-item"><span class="day">24</span><span class="desc master"><span class="tag guru">10</span> <strong>Nacimiento de Guru Rinpoche</strong></span></li>
+            </ul>
+        </div>
+
+        <div class="month-card">
+            <div class="month-header"><h2>JULIO</h2><div class="mewa-badge">5</div></div>
+            <ul class="event-list">
+                <li class="event-item"><span class="day">6</span><span class="desc master">🎂 <strong>91º Cumpleaños SS. Dalai Lama</strong></span></li>
+                <li class="event-item"><span class="day">13</span><span class="desc"><span class="tag protector">29</span> <strong>Dharmapalas</strong></span></li>
+                <li class="event-item"><span class="day">18</span><span class="desc"><span class="tag special">DUCHEN</span> 🎡 Chokhor Duchen (Giro de Rueda)</span></li>
+            </ul>
+        </div>
+
+        <div class="month-card">
+            <div class="month-header"><h2>AGOSTO</h2><div class="mewa-badge">4</div></div>
+            <ul class="event-list">
+                <li class="event-item"><span class="day">11</span><span class="desc"><span class="tag protector">29</span> <strong>Dharmapalas</strong> (Purificación)</span></li>
+                <li class="event-item"><span class="day">12</span><span class="desc"><span class="tag eclipse">ECL</span> 🌑 <strong>ECLIPSE SOLAR TOTAL</strong> (Potencia Máxima)</span></li>
+                <li class="event-item"><span class="day">28</span><span class="desc"><span class="tag eclipse">ECL</span> 🌕 Eclipse Lunar Parcial</span></li>
+                <li class="event-item"><span class="day">30</span><span class="desc master"><span class="tag bon">BÖN</span> Aniv. Shardza Tashi Gyaltsen</span></li>
+            </ul>
+        </div>
+
+        <div class="month-card">
+            <div class="month-header"><h2>SEPTIEMBRE</h2><div class="mewa-badge">3</div></div>
+            <ul class="event-list">
+                <li class="event-item"><span class="day">10</span><span class="desc"><span class="tag protector">29</span> <strong>Dharmapalas</strong></span></li>
+                <li class="event-item"><span class="day">16</span><span class="desc master">Aniv. de Dolpopa Sherab Gyaltsen (Jonang)</span></li>
+                <li class="event-item"><span class="day">21</span><span class="desc"><span class="tag guru">10</span> Día de Guru Rinpoche</span></li>
+            </ul>
+        </div>
+
+        <div class="month-card">
+            <div class="month-header"><h2>OCTUBRE</h2><div class="mewa-badge">2</div></div>
+            <ul class="event-list">
+                <li class="event-item"><span class="day">10</span><span class="desc"><span class="tag protector">29</span> <strong>Dharmapalas</strong></span></li>
+                <li class="event-item"><span class="day">31</span><span class="desc"><span class="tag special">DUCHEN</span> 🌈 Lhabab Duchen (Descenso de Devas)</span></li>
+            </ul>
+        </div>
+
+        <div class="month-card">
+            <div class="month-header"><h2>NOVIEMBRE</h2><div class="mewa-badge">1</div></div>
+            <ul class="event-list">
+                <li class="event-item"><span class="day">8</span><span class="desc"><span class="tag protector">29</span> <strong>Dharmapalas</strong></span></li>
+                <li class="event-item"><span class="day">23</span><span class="desc master">Aniv. de Milarepa (Tradición Kagyu)</span></li>
+                <li class="event-item"><span class="day">24</span><span class="desc master">Aniv. de Sakya Pandita (Tradición Sakya)</span></li>
+            </ul>
+        </div>
+
+        <div class="month-card">
+            <div class="month-header"><h2>DICIEMBRE</h2><div class="mewa-badge">9</div></div>
+            <ul class="event-list">
+                <li class="event-item"><span class="day">4</span><span class="desc master">🕯️ Ganden Ngamcho (Je Tsongkhapa - Gelug)</span></li>
+                <li class="event-item"><span class="day">8</span><span class="desc"><span class="tag protector">29</span> <strong>Dharmapalas</strong></span></li>
+                <li class="event-item"><span class="day">19</span><span class="desc"><span class="tag guru">10</span> Día de Guru Rinpoche</span></li>
+            </ul>
         </div>
     </div>
 </div>
 
 <footer>
-    <p>Para consultas sobre tu Parkha (Trigrama) y Mewa (Número Mágico) personal:</p>
-    <a href="https://www.vajrakula.com" class="web-link" target="_blank">VISITAR VAJRAKULA.COM</a>
+    <p>Dharma y Sabiduría para el beneficio de todos los seres.</p>
+    <a href="https://www.vajrakula.com" class="web-link" target="_blank">VISITAR WWW.VAJRAKULA.COM</a>
 </footer>
-
-<script>
-    const animals = ["Rata", "Buey", "Tigre", "Liebre", "Dragón", "Serpiente", "Caballo", "Oveja", "Mono", "Gallo", "Perro", "Cerdo"];
-    const elements = ["Hierro", "Agua", "Madera", "Fuego", "Tierra"];
-
-    const elementIntel = {
-        "Hierro": {
-            esencia: "representa la determinación inquebrantable, la estructura de la mente y la claridad que corta a través de la confusión.",
-            interaccion: "Como hijo de la Tierra, usted encuentra estabilidad en lo sólido, pero como madre del Agua, su naturaleza tiende a fluir hacia la profundidad emocional. Sin embargo, debe proteger su claridad del Fuego (su enemigo kármico), que puede fundir su determinación, mientras que su fuerza domina naturalmente a la Madera, dándole capacidad para estructurar proyectos creativos.",
-            deidad: "Vajrapani o Yamantaka"
-        },
-        "Agua": {
-            esencia: "simboliza la fluidez absoluta, la penetración de la intuición y la capacidad de purificar cualquier oscurecimiento.",
-            interaccion: "Engendrada por el Hierro, su mente posee una base de nitidez, y como madre de la Madera, usted es el sustento del crecimiento ajeno. Su mayor desafío es la Tierra (su enemigo), que puede estancar su flujo y nublar su visión, pero su fuerza apaga naturalmente el Fuego descontrolado, permitiéndole calmar pasiones intensas en sí mismo y en otros.",
-            deidad: "Buda de la Medicina o Tara Blanca"
-        },
-        "Madera": {
-            esencia: "encarna el crecimiento ilimitado, la flexibilidad de la sabiduría y la expansión de la creatividad.",
-            interaccion: "Nutrida por el Agua, su potencial creativo no tiene fin, y como madre del Fuego, su energía es la chispa del entusiasmo espiritual. Debe ser cauteloso con el Hierro (su enemigo), que puede cortar sus aspiraciones antes de que den fruto, pero su vitalidad penetra y domina a la Tierra, dándole el poder de transformar lo estático en algo vivo y vibrante.",
-            deidad: "Tara Verde o Guru Rinpoche"
-        },
-        "Fuego": {
-            esencia: "es la fuerza alquímica de la transformación, el calor de la devoción y el resplandor de la realización.",
-            interaccion: "Nacido de la Madera, su entusiasmo es inagotable, y como madre de la Tierra, sus acciones dejan una base sólida de mérito. Su punto vulnerable es el Agua (su enemigo), que puede extinguir su alegría y dinamismo, pero usted domina naturalmente al Hierro, teniendo la capacidad única de ablandar corazones rígidos y transformar estructuras obsoletas.",
-            deidad: "Amitabha o Hayagriva"
-        },
-        "Tierra": {
-            esencia: "proporciona el sustento kármico, la paciencia inamovible y la estabilidad de la montaña sagrada.",
-            interaccion: "Creada por el Fuego, su naturaleza es cálida y fértil, y como madre del Hierro, usted es quien da origen a la disciplina. Su desafío principal es la Madera (su enemigo), que puede agotar sus recursos y desestabilizar su equilibrio, pero su solidez contiene naturalmente al Agua, permitiéndole dar dirección y propósito a las emociones más profundas.",
-            deidad: "Ratnasambhava o deidades de la abundancia"
-        }
-    };
-
-    const animalDeepData = {
-        "Rata": {
-            socio: "Mono y Dragón", enemigo: "Caballo",
-            lungta: "Su éxito florece a través de la acumulación silenciosa de mérito. El 'Caballo del Viento' se debilita por la avaricia y la inquietud. Para elevar su fortuna, debe practicar la generosidad extrema y evitar el desorden en sus compromisos.",
-            yidam: "Chenrezig"
-        },
-        "Buey": {
-            socio: "Serpiente y Gallo", enemigo: "Oveja",
-            lungta: "Su poder reside en la perseverancia inamovible. El éxito se ve bloqueado por la ira reprimida y la terquedad del ego. Al cultivar la flexibilidad ante el cambio y la meditación de la paciencia, su Lungta se vuelve una fuerza imparable.",
-            yidam: "Tara Verde"
-        },
-        "Tigre": {
-            socio: "Caballo y Perro", enemigo: "Mono",
-            lungta: "Su magnetismo natural es su mayor activo, pero se drena rápidamente a través del orgullo y la competitividad. El éxito real vendrá de proteger a los más débiles y de transmutar la impulsividad en coraje espiritual bajo la guía de un maestro.",
-            yidam: "Vajrapani"
-        },
-        "Liebre": {
-            socio: "Oveja y Cerdo", enemigo: "Gallo",
-            lungta: "Su fortuna está íntimamente ligada a la armonía de su entorno. El conflicto y la agresión externa apagan su vitalidad. Elevando su ética personal y evitando la maledicencia, su capacidad de influencia y bienestar se multiplicará.",
-            yidam: "Buda de la Medicina"
-        },
-        "Dragón": {
-            socio: "Rata y Mono", enemigo: "Perro",
-            lungta: "Usted posee una energía celestial que atrae grandes oportunidades. Sin embargo, la arrogancia y el desprecio por los detalles pequeños pueden causar su caída. El éxito se mantiene alto si utiliza su poder para servir al Dharma con humildad absoluta.",
-            yidam: "Manjushri"
-        },
-        "Serpiente": {
-            socio: "Buey y Gallo", enemigo: "Cerdo",
-            lungta: "Su éxito proviene de la sabiduría interna y el misterio. Se debilita cuando busca aprobación externa o se pierde en la duda. La meditación profunda y el mantenimiento de compromisos secretos (Samaya) son las llaves de su poder.",
-            yidam: "Tara Blanca"
-        },
-        "Caballo": {
-            socio: "Tigre y Perro", enemigo: "Rata",
-            lungta: "Su energía es dinámica y libre, pero su éxito se ve saboteado por la falta de constancia y el aburrimiento. Su caballo del viento corre hacia la meta cuando alinea su entusiasmo con una disciplina monástica o un horario de práctica riguroso.",
-            yidam: "Vajrasattva"
-        },
-        "Oveja": {
-            socio: "Liebre y Cerdo", enemigo: "Buey",
-            lungta: "Su fortuna es sutil y mística, movida por la fe y la devoción. El cinismo y el materialismo son venenos que detienen su progreso. Al cultivar un corazón compasivo y realizar ofrendas de luz, su camino se abrirá sin esfuerzo.",
-            yidam: "Amitabha"
-        },
-        "Mono": {
-            socio: "Rata y Dragón", enemigo: "Tigre",
-            lungta: "Su ingenio es su herramienta para el éxito, pero la distracción mental es su mayor obstáculo. El éxito se consolida cuando deja de jugar con el conocimiento y empieza a aplicarlo seriamente en su corriente mental a través del Ngöndro.",
-            yidam: "Guru Rinpoche"
-        },
-        "Gallo": {
-            socio: "Buey y Serpiente", enemigo: "Liebre",
-            lungta: "Su vitalidad brilla en el orden y la franqueza. El éxito se ve comprometido por la crítica excesiva y el apego a la imagen. Su Lungta se eleva al practicar el silencio consciente y al proteger la verdad sin usarla como arma.",
-            yidam: "Yamantaka"
-        },
-        "Perro": {
-            socio: "Tigre y Caballo", enemigo: "Dragón",
-            lungta: "Su éxito está fundado en la lealtad y la protección del linaje. El pesimismo y la preocupación excesiva son los ladrones de su suerte. Al refugiarse en la Triple Joya y confiar en su bondad básica, su protección kármica será total.",
-            yidam: "Amitayus"
-        },
-        "Cerdo": {
-            socio: "Liebre y Oveja", enemigo: "Serpiente",
-            lungta: "Usted goza de una fortuna de mérito acumulado, pero la complacencia y la pereza pueden agotarla. El éxito se mantiene vibrante a través de la autodisciplina y el estudio constante de la vacuidad para no quedar atrapado en los sentidos.",
-            yidam: "Vajrayogini"
-        }
-    };
-
-    function calculateDeepAstrology() {
-        const year = document.getElementById('birthYear').value;
-        if (!year || year < 1900) return;
-
-        const animalIdx = (year - 1900) % 12;
-        const animal = animals[animalIdx];
-        const element = elements[Math.floor((year - 1900) / 2) % 5];
-        
-        const intel = elementIntel[element];
-        const details = animalDeepData[animal];
-
-        document.getElementById('content').innerHTML = `
-            <div class="sign-header">
-                <h2 class="sign-title">${animal}</h2>
-                <div class="element-subtitle">Bajo el influjo del elemento ${element}</div>
-            </div>
-
-            <div class="detailed-text">
-                <span class="section-title">I. Esencia Psicológica y Corriente Mental</span>
-                <p>Usted ha nacido en un momento donde las energías del cosmos favorecen la manifestación del arquetipo de la <strong>${animal}</strong>. En la astrología tradicional tibetana, esto implica una corriente mental dotada de tendencias específicas hacia la acción y la percepción. Su carácter es una amalgama de méritos pasados, donde la ${animal} representa su capacidad de navegar el Samsara. Sin embargo, esta forma animal es solo un vehículo; su verdadera naturaleza busca la liberación a través de la comprensión de estas mismas tendencias.</p>
-
-                <span class="section-title">II. La Ciencia de los Elementos y su Interacción Kármica</span>
-                <p>El elemento <strong>${element}</strong> imbuido en su nacimiento ${intel.esencia}</p>
-                <p>En el entramado del universo, usted no existe de forma aislada. ${intel.interaccion} Esta comprensión es vital: armonizar con su "Madre" kármica y protegerse de su "Enemigo" no es superstición, sino la gestión inteligente de las energías que sostienen su salud y su claridad espiritual.</p>
-
-                <span class="section-title">III. Alianzas, Oposiciones y el Espejo de las Relaciones</span>
-                <p>En el camino del Dharma, las relaciones son nuestro mayor campo de entrenamiento. Usted posee una resonancia armónica natural con el <strong>${details.socio}</strong>. Estas son personas con las que su mérito tiende a unirse para crear resultados positivos rápidamente. Por el contrario, su opuesto kármico es la <strong>${details.enemigo}</strong>. Esta relación suele ser tensa y desafiante; sin embargo, desde la perspectiva de Vajrakula, el ${details.enemigo} es su maestro más preciado, pues le obliga a enfrentarse a sus sombras más profundas y a practicar una paciencia que de otro modo sería imposible cultivar.</p>
-
-                <span class="section-title">IV. Lungta: El Caballo del Viento y el Éxito Real</span>
-                <p>El "Lungta" es la energía de la buena fortuna y la vitalidad espiritual. ${details.lungta} Cuando el Caballo del Viento corre alto, todo lo que usted inicia llega a buen término; cuando está bajo, los obstáculos (Barché) se multiplican. La clave para usted este año es la alineación de su intención con la verdad, permitiendo que la energía del ${element} actúe como un viento a favor de sus aspiraciones más elevadas.</p>
-
-                <span class="section-title">V. Deidad de Práctica y Senda de Liberación</span>
-                <p>Para trascender las limitaciones de su nacimiento y purificar el karma acumulado, se le aconseja dirigir su devoción hacia <strong>${details.yidam}</strong>. Esta deidad es la manifestación pura de la energía que su signo tiende a distorsionar. Al recitar su mantra y visualizar su forma, usted está llamando a su propia naturaleza despierta. Se recomienda encarecidamente la consulta en Vajrakula para recibir instrucciones precisas sobre cómo integrar esta deidad en su práctica diaria, convirtiendo su astrología en un vehículo directo hacia el Despertar.</p>
-            </div>
-        `;
-        
-        document.getElementById('result').style.display = 'block';
-        window.scrollTo({ top: document.getElementById('result').offsetTop - 50, behavior: 'smooth' });
-    }
-</script>
 
 </body>
 </html>
