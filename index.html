@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Srid-pa-ho: Oráculo y Deidades - Vajrakula</title>
+    <title>Astrología Tibetana: Srid-pa-ho - Vajrakula</title>
     <style>
         :root {
             --deep-blue: #29166F;
@@ -13,54 +13,61 @@
             --golden-yellow: #F4E109;
         }
 
-        body { font-family: 'Palatino', 'Georgia', serif; background-color: #f4efdf; margin: 0; color: #1a1a1a; line-height: 1.8; }
+        body { font-family: 'Palatino', 'Georgia', serif; background-color: #fdfaf6; margin: 0; color: #1a1a1a; line-height: 1.8; }
         header { background-color: var(--deep-blue); color: var(--golden-yellow); padding: 50px 20px; text-align: center; border-bottom: 10px solid var(--tibetan-red); }
         
+        /* Representación Visual del Srid-pa-ho */
+        .sridpaho-box { 
+            width: 200px; height: 200px; margin: 0 auto 20px; 
+            background: var(--golden-yellow); border-radius: 50%; 
+            border: 5px solid var(--tibetan-red); position: relative;
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 0 20px rgba(0,0,0,0.2);
+        }
+        .turtle-shell {
+            width: 140px; height: 140px; border: 2px solid var(--deep-blue);
+            display: grid; grid-template-columns: repeat(3, 1fr);
+            transform: rotate(45deg);
+        }
+        .turtle-shell div { border: 1px solid var(--deep-blue); }
+
         .container { max-width: 900px; margin: auto; padding: 40px 20px; }
+        .calculator-card { background: white; padding: 40px; border-radius: 8px; box-shadow: 0 10px 40px rgba(0,0,0,0.1); border: 1px solid #ddd; text-align: center; }
         
-        .sridpaho-container { text-align: center; margin-bottom: 30px; }
-        .sridpaho-svg { width: 160px; height: 160px; fill: var(--golden-yellow); filter: drop-shadow(0 0 8px rgba(0,0,0,0.3)); }
+        input { padding: 15px; font-size: 1.2rem; border: 2px solid var(--deep-blue); border-radius: 4px; margin: 10px; width: 100%; max-width: 250px; text-align: center; }
+        button { background-color: var(--tibetan-red); color: white; padding: 18px 40px; border: none; border-radius: 4px; font-size: 1.1rem; font-weight: bold; cursor: pointer; transition: 0.3s; margin-top: 20px; text-transform: uppercase; }
+        button:hover { background-color: var(--deep-blue); color: var(--golden-yellow); }
 
-        .calculator-card { background: #fffcf5; padding: 40px; border-radius: 4px; box-shadow: 0 10px 40px rgba(0,0,0,0.15); border: 2px solid var(--deep-blue); text-align: center; }
+        #result { margin-top: 40px; display: none; text-align: left; border-top: 3px solid var(--tibetan-red); padding-top: 30px; }
+        .sign-title { color: var(--deep-blue); font-size: 2.2rem; text-align: center; width: 100%; margin-bottom: 20px; }
+        .highlight { color: var(--tibetan-red); font-weight: bold; font-size: 1.1rem; }
         
-        input { padding: 15px; font-size: 1.2rem; border: 2px solid var(--deep-blue); margin: 10px; width: 100%; max-width: 250px; text-align: center; }
-        button { background-color: var(--deep-blue); color: var(--golden-yellow); padding: 18px 40px; border: 1px solid var(--golden-yellow); font-size: 1.1rem; font-weight: bold; cursor: pointer; transition: 0.3s; margin-top: 20px; text-transform: uppercase; letter-spacing: 1px; }
-        button:hover { background-color: var(--tibetan-red); color: white; }
+        .element-detail { background: #fef9e7; padding: 20px; border-left: 5px solid var(--dharma-green); margin: 20px 0; }
 
-        #result { margin-top: 40px; display: none; text-align: left; padding-top: 30px; animation: fadeIn 0.8s; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-
-        .sign-header { text-align: center; border-bottom: 2px double var(--golden-yellow); padding-bottom: 20px; margin-bottom: 30px; }
-        .sign-title { color: var(--deep-blue); font-size: 2.8rem; margin: 0; }
-        .element-badge { color: var(--tibetan-red); font-variant: small-caps; font-size: 1.5rem; font-weight: bold; }
-        
-        .detailed-text p { margin-bottom: 25px; text-align: justify; text-indent: 30px; }
-        .detailed-text strong { color: var(--tibetan-red); }
-        .deity-box { background-color: #fdf6e3; border: 1px solid var(--golden-yellow); padding: 20px; margin-top: 10px; border-radius: 4px; }
-
-        footer { background-color: var(--deep-blue); color: white; text-align: center; padding: 60px 20px; margin-top: 80px; border-top: 8px solid var(--tibetan-red); }
-        .contact-btn { display: inline-block; background-color: var(--golden-yellow); color: var(--deep-blue); padding: 15px 35px; text-decoration: none; font-weight: bold; margin-top: 20px; border-radius: 4px; }
+        footer { background-color: var(--deep-blue); color: white; text-align: center; padding: 60px 20px; margin-top: 80px; }
+        .web-link { display: inline-block; background-color: var(--golden-yellow); color: var(--deep-blue); padding: 15px 35px; border-radius: 4px; text-decoration: none; font-weight: bold; margin-top: 20px; }
     </style>
 </head>
 <body>
 
 <header>
-    <div class="sridpaho-container">
-        <svg class="sridpaho-svg" viewBox="0 0 100 100">
-            <path d="M50 5 C25 5 5 25 5 50 C5 75 25 95 50 95 C75 95 95 75 95 50 C95 25 75 5 50 5 M50 15 L60 25 L50 35 L40 25 Z M25 50 L35 40 L45 50 L35 60 Z M75 50 L65 40 L55 50 L65 60 Z M50 85 L40 75 L50 65 L60 75 Z"/>
-            <text x="50" y="53" font-size="9" text-anchor="middle" fill="currentColor">HRIH</text>
-        </svg>
+    <div class="sridpaho-box">
+        <div class="turtle-shell">
+            <div></div><div></div><div></div>
+            <div></div><div style="display:flex; align-items:center; justify-content:center; transform: rotate(-45deg); font-weight:bold;">ॐ</div><div></div>
+            <div></div><div></div><div></div>
+        </div>
     </div>
-    <h1>Astrología Budista Vajrakula</h1>
-    <p>Sabiduría de los Ciclos y Deidades de Práctica</p>
+    <h1>Astrología Tradicional Tibetana</h1>
+    <p>El Conocimiento de los Elementos y los Ciclos Kármicos</p>
 </header>
 
 <div class="container">
     <div class="calculator-card">
-        <h2>Consulta tu Mandala Personal</h2>
-        <input type="number" id="birthYear" placeholder="Año (ej. 1975)" min="1900" max="2030">
+        <h2>Cálculo del Jungwa-Tsi</h2>
+        <input type="number" id="birthYear" placeholder="Año (ej. 1984)" min="1900" max="2030">
         <br>
-        <button onclick="revealDestiny()">CALCULAR MI CAMINO</button>
+        <button onclick="calculateJungwa()">Revelar Esencia</button>
 
         <div id="result">
             <div id="content"></div>
@@ -69,81 +76,70 @@
 </div>
 
 <footer>
-    <p>Para profundizar en su práctica y recibir transmisiones de estas deidades:</p>
-    <a href="https://www.vajrakula.com" class="contact-btn">VISITAR VAJRAKULA.COM</a>
+    <p>Para un estudio detallado de su mandala astrológico:</p>
+    <a href="https://www.vajrakula.com" class="web-link" target="_blank">VISITAR VAJRAKULA.COM</a>
 </footer>
 
 <script>
     const animals = ["Rata", "Buey", "Tigre", "Liebre", "Dragón", "Serpiente", "Caballo", "Oveja", "Mono", "Gallo", "Perro", "Cerdo"];
     const elements = ["Hierro", "Agua", "Madera", "Fuego", "Tierra"];
 
-    const lungtaData = {
-        "Rata": "Su éxito depende de la astucia ética. El desorden y la falta de previsión apagan su caballo del viento. Debe evitar la avaricia para mantener su vitalidad alta.",
-        "Buey": "Su Lungta es sólido pero lento. Se debilita con la obstinación y la ira reprimida. El éxito llega cuando cultiva la flexibilidad mental.",
-        "Tigre": "Energía poderosa que se agota con la impulsividad. Su caballo del viento vuela alto cuando protege a los demás, pero cae con el orgullo.",
-        "Liebre": "Su vitalidad es delicada y se nutre de la paz. El conflicto y los ambientes agresivos roban su éxito. Florece en la diplomacia.",
-        "Dragón": "Posee un Lungta magnético. Se apaga con la arrogancia y se enciende con actos de gran visión. Debe cultivar la humildad.",
-        "Serpiente": "Éxito basado en la intuición. Su energía se drena cuando intenta complacer a todos. La soledad meditativa eleva su fortuna.",
-        "Caballo": "Su Lungta es veloz pero inestable. La rutina y el encierro agotan su suerte. El éxito llega al iniciar proyectos con base ética.",
-        "Oveja": "Energía ligada a la devoción. El cinismo y la dureza de corazón apagan su caballo del viento. Su éxito depende de su conexión con la compasión.",
-        "Mono": "Vitalidad juguetona que se agota con la falta de propósito espiritual. Su ingenio debe canalizarse hacia el beneficio de los demás.",
-        "Gallo": "Lungta basado en la disciplina. La desidia y el caos arruinan su suerte. Su energía vital brilla cuando mantiene su palabra.",
-        "Perro": "Éxito dependiente de la lealtad. La traición destruye su vitalidad. Su caballo del viento se fortalece mediante el refugio espiritual.",
-        "Cerdo": "Lungta de abundancia natural. Se debilita con la indulgencia sensorial excesiva. Su éxito es firme cuando cultiva la honestidad."
+    const elementIntel = {
+        "Hierro": {
+            esencia: "representa la determinación, la estructura y la claridad cortante de la mente.",
+            madre: "Tierra (que lo engendra)", hijo: "Agua (a quien nutre)",
+            enemigo: "Fuego (que lo funde)", amigo: "Madera (a quien domina)"
+        },
+        "Agua": {
+            esencia: "simboliza la fluidez, la penetración intuitiva y la purificación constante.",
+            madre: "Hierro (que la destila)", hijo: "Madera (a quien hace crecer)",
+            enemigo: "Tierra (que la absorbe)", amigo: "Fuego (a quien apaga)"
+        },
+        "Madera": {
+            esencia: "encarna el crecimiento, la flexibilidad creativa y la expansión vital.",
+            madre: "Agua (que la nutre)", hijo: "Fuego (a quien da vida)",
+            enemigo: "Hierro (que la corta)", amigo: "Tierra (a quien penetra)"
+        },
+        "Fuego": {
+            esencia: "es la fuerza de la transformación, la pasión espiritual y el resplandor.",
+            madre: "Madera (que lo alimenta)", hijo: "Tierra (a quien crea mediante cenizas)",
+            enemigo: "Agua (que lo extingue)", amigo: "Hierro (a quien transforma)"
+        },
+        "Tierra": {
+            esencia: "proporciona la estabilidad, el sustento kármico y la paciencia inamovible.",
+            madre: "Fuego (que la produce)", hijo: "Hierro (a quien contiene)",
+            enemigo: "Madera (que la agota)", amigo: "Agua (a quien contiene)"
+        }
     };
 
-    const deities = {
-        "Rata": "Avalokiteshvara (Chenrezig) para transformar el apego en compasión y estabilizar la mente.",
-        "Buey": "Tara Verde para superar la inercia y la obstinación con acción rápida y compasiva.",
-        "Tigre": "Vajrapani para canalizar la fuerza y el poder sin caer en la agresión o la ira.",
-        "Liebre": "Buda de la Medicina (Sangye Menla) para proteger la salud y cultivar la paz interior.",
-        "Dragón": "Manjushri para transformar el orgullo en sabiduría discriminativa y visión clara.",
-        "Serpiente": "Tara Blanca para la longevidad, la intuición y la superación de miedos secretos.",
-        "Caballo": "Vajrasattva para purificar el karma de la impulsividad y estabilizar los vientos internos.",
-        "Oveja": "Amitabha para cultivar la devoción y asegurar un renacimiento en tierras puras.",
-        "Mono": "Guru Rinpoche (Padmasambhava) para domar la mente inquieta y eliminar obstáculos espirituales.",
-        "Gallo": "Yamantaka o deidades iracundas para purificar el apego a la imagen propia y el orgullo.",
-        "Perro": "Amitayus para fortalecer la fuerza vital y proteger los compromisos de lealtad (Samaya).",
-        "Cerdo": "Vajrayogini o deidades femeninas para transmutar la ignorancia en sabiduría radiante."
-    };
-
-    function revealDestiny() {
+    function calculateJungwa() {
         const year = document.getElementById('birthYear').value;
         if (!year) return;
 
         const animalIdx = (year - 1900) % 12;
         const animal = animals[animalIdx];
         const element = elements[Math.floor((year - 1900) / 2) % 5];
-        
-        const allies = [animals[(animalIdx + 4) % 12], animals[(animalIdx + 8) % 12]];
-        const enemy = animals[(animalIdx + 6) % 12];
-        const lungta = lungtaData[animal];
-        const deity = deities[animal];
+        const intel = elementIntel[element];
 
-        const content = document.getElementById('content');
-        content.innerHTML = `
-            <div class="sign-header">
-                <h2 class="sign-title">${animal} de ${element}</h2>
-            </div>
+        document.getElementById('content').innerHTML = `
+            <h2 class="sign-title">${animal} de ${element}</h2>
             <div class="detailed-text">
-                <p><strong>I. Esencia Psicológica:</strong> El nacido en el año del ${animal} posee una corriente mental marcada por tendencias kármicas que inclinan su personalidad hacia la observación y la acción. Según su elemento ${element}, su camino este año se verá influenciado por esta energía vital específica.</p>
+                <p><span class="highlight">I. Esencia del Signo:</span> Como ${animal}, su naturaleza está ligada a un ciclo de vitalidad específico. Su corriente mental tiende hacia la resolución de conflictos mediante la observación y la acción oportuna.</p>
                 
-                <p><strong>II. La Fuerza del ${element}:</strong> El elemento ${element} actúa como el motor de su destino actual. Debe prestar atención a cómo este elemento interactúa con sus emociones; el equilibrio del ${element} en su vida diaria es la base para una salud estable y una mente clara para la práctica.</p>
-                
-                <p><strong>III. Relaciones Kármicas:</strong> Sus aliados naturales en este ciclo son el <strong>${allies[0]}</strong> y el <strong>${allies[1]}</strong>. Por el contrario, encontrará sus mayores desafíos de crecimiento con el signo del <strong>${enemy}</strong>, quien actúa como un catalizador para trabajar su paciencia.</p>
-                
-                <p><strong>IV. Vitalidad y Éxito (Lungta):</strong> <em>${lungta}</em> Recuerde que el Caballo del Viento se eleva mediante la conducta ética y la conexión con el Dharma, permitiendo que sus aspiraciones se cumplan sin impedimentos.</p>
-                
-                <p><strong>V. Deidad y Práctica Sugerida:</strong> Para armonizar las influencias astrológicas de su signo, se recomienda la conexión con <strong>${deity}</strong>. En la deidad se encuentra el antídoto contra los venenos mentales de su animal regente. </p>
-                
-                <div class="deity-box">
-                    <strong>Consejo de Vajrakula:</strong> "La deidad no es externa, sino el reflejo de su propia naturaleza pura. Practicar con esta deidad le ayudará a trascender las limitaciones del horóscopo y alcanzar la paz".
+                <div class="element-detail">
+                    <p><span class="highlight">II. Dinámica del Elemento ${element}:</span> Su energía vital se manifiesta como ${element}, lo cual ${intel.esencia}</p>
+                    <p><strong>Ciclo de Armonía:</strong> Usted recibe apoyo natural de la energía <em>${intel.madre}</em> (su madre kármica) y tiene la responsabilidad de nutrir a quienes poseen el elemento <em>${intel.hijo}</em> (su hijo kármico).</p>
+                    <p><strong>Ciclo de Conflicto:</strong> Debe estar atento a la influencia de <em>${intel.enemigo}</em>, que tiende a debilitar su fuerza, mientras que usted ejerce una maestría natural sobre el elemento <em>${intel.amigo}</em>, al cual puede ayudar a estructurar.</p>
                 </div>
+
+                <p><span class="highlight">III. Compatibilidad:</span> Sus mejores alianzas se dan con signos de su misma familia elemental, facilitando el éxito en retiros y proyectos. La oposición kármica es un espejo para su propio ego.</p>
+                
+                <p><span class="highlight">IV. Lungta:</span> Su Caballo del Viento se eleva cuando equilibra la rigidez con la compasión, permitiendo que el elemento ${element} fluya sin obstáculos mentales.</p>
+                
+                <p><span class="highlight">V. Práctica:</span> Se recomienda la meditación en deidades que armonicen la relación entre su elemento y su animal regente, buscando siempre el refugio en Vajrakula.</p>
             </div>
         `;
-        
         document.getElementById('result').style.display = 'block';
-        window.scrollTo({ top: document.getElementById('result').offsetTop - 50, behavior: 'smooth' });
     }
 </script>
 
